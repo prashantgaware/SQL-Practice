@@ -1,0 +1,60 @@
+AWS Notes:
+==========
+
+## Compute Services:
+
+- Compute in AWS refers to the collection of services and features that provide computing power to run applications 
+and processes on the cloud. These services allow you to execute computational tasks without the need to manage physical servers. 
+AWS offers a variety of compute services to cater to different needs, such as:
+
+	Amazon EC2 (Elastic Compute Cloud): 
+		Provides scalable virtual servers (instances) that you can customize based on your requirements.
+	AWS Lambda: 
+		Allows you to run code in response to events without provisioning or managing servers. You pay only for the compute time you consume.
+	Amazon Lightsail: 
+		Offers an easy-to-use cloud platform that provides everything you need to build an application or website, with plans that 
+		include a virtual machine, SSD-based storage, data transfer, DNS management, and a static IP.
+	AWS Batch: 
+		Enables you to run batch computing jobs on AWS. It dynamically provisions the optimal quantity and type of compute 
+		resources (CPU or memory) based on the volume and specific resource requirements of the batch jobs submitted.
+
+Each of these services is designed to offer different levels of control, flexibility, and scalability, depending on your project's needs,
+allowing you to select the most appropriate service for your specific use case.
+
+## EC2:
+
+- EC2 stands for Amazon Elastic Compute Cloud. 
+It's a service provided by AWS that allows you to deploy virtual servers, known as instances, within your AWS environment. 
+EC2 is a fundamental part of many AWS solutions because it offers flexible, scalable computing capacity. 
+This means you can quickly scale up or down as your computing requirements change, making it easier to manage your application's demand. 
+EC2 instances come with a variety of options including different instance types, purchasing options, tenancy, user data, 
+storage options, and security settings to cater to different workload requirements.
+
+	## EC2 Image Builder
+	--------------------
+		- EC2 Image Builder automates the creation of VM images for EC2 instances and Docker workloads, offering a robust pipeline for image building.
+		- The pipeline allows customization of software, including OS updates, productivity tools, and security patches, and ensures security by enforcing strong passwords, disk encryption, and closing non-essential ports.
+		- It automatically tests images for booting, application functionality, and security compliance, and distributes them to selected AWS regions.
+		- Previously, such tasks required third-party tools or manual scripting, but EC2 Image Builder simplifies the process with an automated pipeline.
+		- Users can define a pipeline with a name, description, tags, and build schedule, and choose to build images automatically or manually.
+		- A recipe, which is a set of instructions for creating an AMI, is specified in the pipeline, with options to use pre-built or custom recipes.
+		- Users select an operating system from options like Amazon Linux, Windows Server, and others, which affects the workloads that can be run.
+		- Components, which add features and functionality, are defined in the pipeline and can be custom or pre-built by Amazon.
+		- Components are categorized into build components, which install software, and test components, which validate functionality, security, or performance.
+		- Component documents, written in YAML, describe actions for the image, including phases like Build, Validate, and Test.
+		- Actions supported in component documents include executing commands, file operations, and system actions like rebooting and updating the OS.
+		- The pipeline can be re-run for updates, and AMIs can be shared across AWS accounts with controlled launch permissions.
+		- EC2 Image Builder integrates with AWS Organizations for managing AMI launch permissions.
+		
+		
+AWS Lambda:
+	- AWS Lambda is a serverless compute service that allows you to run application code without managing EC2 instances.
+	- It eliminates the need for infrastructure maintenance, enabling you to focus on code and business logic.
+	- Lambda functions consist of three main parts: input, the function itself, and output.
+	- Functions are the code representing business logic, with configurable details like permissions, environment variables, and compute power.
+	- Code can be uploaded directly, via a zip file, or from Amazon S3, and must match the selected runtime.
+	- Lambda supports several runtimes, including Java, Go, PowerShell, Node.js, C#, Python, and Ruby, with custom runtime support for other languages.
+	- Custom logging and CloudWatch metrics are available for monitoring and alerting.
+	- Costs are based on the number of requests, execution duration, and provisioned compute power, with charges proportional to memory allocation.
+		
+	

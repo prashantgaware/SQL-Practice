@@ -1,0 +1,324 @@
+=================================
+  COMPREHENSIVE DOCKER COMMANDS
+=================================
+
+A detailed guide to Docker commands, organized by function, with examples.
+
+
+*************************
+** 1. MANAGEMENT COMMANDS **
+*************************
+General commands for interacting with the Docker system.
+
+Command:     docker --version
+Description: Shows the installed version of Docker.
+Example:     docker --version
+
+Command:     docker info
+Description: Displays system-wide information regarding the Docker installation. This includes the number of containers and images, and details about the Docker server.
+Example:     docker info
+
+Command:     docker login [SERVER]
+Description: Logs you into a Docker registry. If no server is specified, it defaults to Docker Hub.
+Example:     docker login my-private-registry.com
+
+Command:     docker logout [SERVER]
+Description: Logs you out from a Docker registry.
+Example:     docker logout
+
+
+*********************
+** 2. IMAGE COMMANDS **
+*********************
+Commands for managing Docker images.
+
+Command:     docker build [OPTIONS] PATH
+Description: Builds a Docker image from a Dockerfile.
+Example:     docker build -t my-app:1.0 .
+  Options:
+    -t, --tag name:tag      - Names and optionally tags the image in the 'name:tag' format.
+    -f, --file path         - Specifies the path to the Dockerfile.
+
+Command:     docker images (or docker image ls)
+Description: Lists all the Docker images on your local machine.
+Example:     docker images
+  Options:
+    -a, --all               - Shows all images, including intermediate layers.
+    -q, --quiet             - Only displays the numeric IDs of the images.
+
+Command:     docker pull IMAGE[:TAG]
+Description: Downloads an image from a registry.
+Example:     docker pull nginx:latest
+
+Command:     docker push IMAGE[:TAG]
+Description: Uploads an image to a registry. You must be logged in to the target registry.
+Example:     docker push myusername/my-app:1.0
+
+Command:     docker rmi IMAGE
+Description: Removes one or more images. You cannot remove an image that is currently being used by a container.
+Example:     docker rmi nginx:latest
+  Options:
+    -f, --force             - Forces the removal of the image.
+
+Command:     docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+Description: Creates a tag TARGET_IMAGE that refers to SOURCE_IMAGE.
+Example:     docker tag my-app:1.0 myusername/my-app:1.0
+
+Command:     docker history IMAGE
+Description: Shows the history of an image, displaying its layers.
+Example:     docker history python:3.9
+
+Command:     docker save -o file.tar IMAGE
+Description: Saves an image to a tar archive.
+Example:     docker save -o ubuntu.tar ubuntu:latest
+
+Command:     docker load -i file.tar
+Description: Loads an image from a tar archive.
+Example:     docker load -i ubuntu.tar
+
+Command:     docker import [OPTIONS] file|URL|- [REPOSITORY[:TAG]]
+Description: Imports the contents from a tarball to create a filesystem image.
+Example:     docker import my-filesystem.tar my-new-image:v1
+
+
+*************************
+** 3. CONTAINER COMMANDS **
+*************************
+Commands for managing Docker containers.
+
+Command:     docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+Description: Creates and starts a new container from an image.
+Example:     docker run -d -p 8080:80 --name my-web-server nginx
+  Options:
+    -d, --detach            - Runs the container in the background (detached mode).
+    -p, --publish           - Publishes a container's port to the host (e.g., -p 8080:80).
+    --name string           - Assigns a name to the container.
+    -it                     - Creates an interactive terminal session with the container.
+    --rm                    - Automatically removes the container when it exits.
+    -v, --volume            - Mounts a volume (e.g., -v /host/path:/container/path).
+    -e, --env list          - Sets environment variables.
+
+Command:     docker ps (or docker container ls)
+Description: Lists all running containers.
+Example:     docker ps -a
+  Options:
+    -a, --all               - Shows all containers, including stopped ones.
+    -q, --quiet             - Only displays container IDs.
+
+Command:     docker stop CONTAINER
+Description: Gracefully stops one or more running containers.
+Example:     docker stop my-web-server
+
+Command:     docker start CONTAINER
+Description: Starts one or more stopped containers.
+Example:     docker start my-web-server
+
+Command:     docker restart CONTAINER
+Description: Restarts a running container.
+Example:     docker restart my-web-server
+
+Command:     docker kill CONTAINER
+Description: Sends a SIGKILL to a container to stop it immediately.
+Example:     docker kill my-unresponsive-app
+
+Command:     docker rm CONTAINER
+Description: Removes one or more stopped containers.
+Example:     docker rm my-web-server
+  Options:
+    -f, --force             - Forces the removal of a running container.
+
+Command:     docker logs CONTAINER
+Description: Fetches the logs of a container.
+Example:     docker logs -f my-web-server
+  Options:
+    -f, --follow            - Follows the log output in real-time.
+
+Command:     docker exec [OPTIONS] CONTAINER COMMAND
+Description: Executes a command in a running container.
+Example:     docker exec -it my-web-server /bin/bash
+  Options:
+    -it                     - Creates an interactive terminal session.
+
+Command:     docker inspect OBJECT
+Description: Provides detailed, low-level information on Docker objects (containers, images, etc.) in JSON format.
+Example:     docker inspect my-web-server
+
+Command:     docker attach CONTAINER
+Description: Attaches your terminal's standard input, output, and error to a running container.
+Example:     docker attach my-interactive-container
+
+Command:     docker cp SOURCE_PATH CONTAINER:DEST_PATH
+Description: Copies files or folders between a container and the local filesystem.
+Example:     docker cp ./index.html my-web-server:/usr/share/nginx/html/index.html
+
+Command:     docker stats [CONTAINER...]
+Description: Displays a live stream of container resource usage statistics.
+Example:     docker stats
+
+Command:     docker top CONTAINER
+Description: Displays the running processes of a container.
+Example:     docker top my-web-server
+
+Command:     docker rename OLD_NAME NEW_NAME
+Description: Renames a container.
+Example:     docker rename my-web-server old-server
+
+Command:     docker pause CONTAINER
+Description: Pauses all processes within a container.
+Example:     docker pause my-web-server
+
+Command:     docker unpause CONTAINER
+Description: Unpauses all processes within a container.
+Example:     docker unpause my-web-server
+
+Command:     docker wait CONTAINER
+Description: Blocks until a container stops, then prints its exit code.
+Example:     docker wait my-web-server
+
+
+************************
+** 4. NETWORK COMMANDS **
+************************
+Commands for managing Docker networks.
+
+Command:     docker network ls
+Description: Lists all networks.
+Example:     docker network ls
+
+Command:     docker network create [OPTIONS] NETWORK
+Description: Creates a new network.
+Example:     docker network create my-app-net
+  Options:
+    --driver string         - The network driver to use (e.g., bridge, host, overlay).
+
+Command:     docker network rm NETWORK
+Description: Removes one or more networks.
+Example:     docker network rm my-app-net
+
+Command:     docker network inspect NETWORK
+Description: Displays detailed information on one or more networks.
+Example:     docker network inspect my-app-net
+
+Command:     docker network connect NETWORK CONTAINER
+Description: Connects a container to a network.
+Example:     docker network connect my-app-net my-web-server
+
+Command:     docker network disconnect NETWORK CONTAINER
+Description: Disconnects a container from a network.
+Example:     docker network disconnect my-app-net my-web-server
+
+Command:     docker network prune
+Description: Removes all unused networks.
+Example:     docker network prune
+
+
+***********************
+** 5. VOLUME COMMANDS **
+***********************
+Commands for managing Docker volumes.
+
+Command:     docker volume ls
+Description: Lists all volumes.
+Example:     docker volume ls
+
+Command:     docker volume create [OPTIONS] [VOLUME]
+Description: Creates a new volume.
+Example:     docker volume create my-app-data
+  Options:
+    --driver string         - Specifies the volume driver.
+
+Command:     docker volume rm VOLUME
+Description: Removes one or more volumes.
+Example:     docker volume rm my-app-data
+
+Command:     docker volume inspect VOLUME
+Description: Displays detailed information on one or more volumes.
+Example:     docker volume inspect my-app-data
+
+Command:     docker volume prune
+Description: Removes all unused local volumes.
+Example:     docker volume prune
+
+
+***********************
+** 6. SYSTEM COMMANDS **
+***********************
+Commands for managing the Docker system.
+
+Command:     docker system df
+Description: Shows Docker disk usage.
+Example:     docker system df
+
+Command:     docker system prune [OPTIONS]
+Description: Removes unused data.
+Example:     docker system prune -a --volumes
+  Options:
+    -a, --all               - Removes all unused images, not just dangling ones.
+    --volumes               - Prunes volumes as well.
+
+Command:     docker system events
+Description: Gets real-time events from the server.
+Example:     docker system events
+
+
+******************************
+** 7. DOCKER COMPOSE COMMANDS **
+******************************
+Commands for managing multi-container applications with a `docker-compose.yml` file.
+
+Command:     docker-compose up [OPTIONS]
+Description: Builds, (re)creates, starts, and attaches to containers for a service.
+Example:     docker-compose up -d
+  Options:
+    -d                      - Runs containers in detached mode.
+    --build                 - Builds images before starting containers.
+
+Command:     docker-compose down [OPTIONS]
+Description: Stops and removes containers, networks, images, and volumes.
+Example:     docker-compose down -v
+  Options:
+    -v, --volumes           - Removes named volumes declared in the `volumes` section of the Compose file.
+
+Command:     docker-compose ps
+Description: Lists containers.
+Example:     docker-compose ps
+
+Command:     docker-compose logs [SERVICE...]
+Description: Displays log output from services.
+Example:     docker-compose logs -f web
+
+Command:     docker-compose build [SERVICE...]
+Description: Builds or rebuilds services.
+Example:     docker-compose build web
+
+Command:     docker-compose start [SERVICE...]
+Description: Starts existing containers for a service.
+Example:     docker-compose start
+
+Command:     docker-compose stop [SERVICE...]
+Description: Stops running containers without removing them.
+Example:     docker-compose stop
+
+Command:     docker-compose restart [SERVICE...]
+Description: Restarts services.
+Example:     docker-compose restart web
+
+Command:     docker-compose exec [OPTIONS] SERVICE COMMAND
+Description: Executes a command in a running container.
+Example:     docker-compose exec web /bin/sh
+
+Command:     docker-compose config
+Description: Validates and views the Compose file.
+Example:     docker-compose config
+
+Command:     docker-compose pull
+Description: Pulls service images.
+Example:     docker-compose pull
+
+Command:     docker-compose push
+Description: Pushes service images.
+Example:     docker-compose push
+
+Command:     docker-compose rm [SERVICE...]
+Description: Removes stopped service containers.
+Example:     docker-compose rm -f -s -v
